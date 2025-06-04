@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= post.title %> | MyBlog</title>
+  <link rel="stylesheet" href="/public/styles.css" />
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleDarkMode()">🌓 Toggle Theme</button>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">MyBlog</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/compose">Compose</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><%= post.title %></h1>
+    <p><%= post.content %></p>
+
+    <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this post?');">
+      <button type="submit" class="delete-btn">Delete Post</button>
+    </form>
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 MyBlog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    }
+  </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compose | MyBlog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleDarkMode()">🌓 Toggle Theme</button>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">MyBlog</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/compose">Compose</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Compose a New Post</h1>
+    <form action="/compose" method="POST">
+      <input type="text" name="postTitle" placeholder="Title" required />
+
+      <!-- ✅ Textarea allows large content -->
+      <textarea name="postBody" placeholder="Write your blog post here..." rows="10" required></textarea>
+
+      <button type="submit">Publish</button>
+    </form>
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 MyBlog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    }
+  </script>
+</body>
+</html>

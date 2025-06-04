@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Blog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleDarkMode()">🌓 Toggle Theme</button>
+
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="logo">MyBlog</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/compose">Compose</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>My Blog</h1>
+    <a class="compose-link" href="/compose">+ Compose New Post</a>
+
+    <% if (posts.length === 0) { %>
+      <p>No posts yet. Start by composing one!</p>
+    <% } else { %>
+      <% posts.forEach(function(post) { %>
+        <div class="post-preview">
+          <h2><a href="/posts/<%= post.id %>"><%= post.title %></a></h2>
+          <p><%= post.content.substring(0, 150) %>...</p>
+
+          <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 MyBlog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    }
+  </script>
+</body>
+</html>
